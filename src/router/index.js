@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Catalog from '../views/Catalog.vue'
 import ScrollBehaviorTest from '../views/ScrollBehaviorTest.vue'
 
 Vue.use(VueRouter)
@@ -15,6 +16,20 @@ const routes = [
     path: '/test',
     name: 'Test',
     component: ScrollBehaviorTest
+  },
+  {
+    path: '/catalog',
+    name: 'Catalog',
+    component: Catalog
+  },
+  {
+    path: '/items/:slug',
+    props: true,
+    name: 'Item',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "item" */ '../views/Item.vue')
   },
   {
     path: '/about',

@@ -50,16 +50,21 @@ export default {
     toggleNavDrawer: false,
     showNavs: true,
     navDrawerActions: [
+      // {
+      //   title: "home",
+      //   icon: "home",
+      //   route: "/",
+      // },
       {
-        title: "home",
-        icon: "home",
-        route: "/",
+        title: "catalog",
+        icon: "library",
+        route: "/catalog",
       },
-      {
-        title: "about",
-        icon: "information",
-        route: "/about",
-      },
+      // {
+      //   title: "about",
+      //   icon: "information",
+      //   route: "/about",
+      // },
       {
         title: "test",
         icon: "cog",
