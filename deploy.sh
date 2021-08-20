@@ -21,7 +21,7 @@ git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 # !!! GitHub repos init to main, git init to master
-git push -f git@github.com:chrizzis/catalog-ui-gh-pages-prototype.git main:gh-pages
-# git push -f git@github.com:chrizzis/catalog-ui-gh-pages-prototype.git master:gh-pages
+# git push -f git@github.com:chrizzis/catalog-ui-gh-pages-prototype.git main:gh-pages
+git push -f git@github.com:chrizzis/catalog-ui-gh-pages-prototype.git master:gh-pages
 
 cd -
