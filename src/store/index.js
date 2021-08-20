@@ -15,13 +15,27 @@ export default new Vuex.Store({
   actions: {
   },
   getters: {
+    // can map to computed
+    getCatalog: (state, getters) => {
+      console.log(`store:getCatalog`)
+      return state.items.map(i => {
+        if (!i.avatar) {
+          return i;
+        }
+        return {
+          ...i,
+          assets: i.assets.map(id => getters.getAsset(id)) || i.assets,
+          avatar: getters.getAsset(i.avatar).src || i.avatar
+        }
+      })
+    },
     // since this takes an arg, cant mapGetters to computeds
-    getItem: (state) => (id) => {
+    getItem: (state, getters) => (id) => {
       console.log(`store:getItem '${id}'`)
-      return state.items.find(item => {
+      return getters.getCatalog.find(item => {
         console.log(`store:getItem '${id}' found!`)
         return item.id === id;
-      })
+      });
     },
     getAsset: (state) => (id) => {
       console.log(`store:getAsset '${id}'`)

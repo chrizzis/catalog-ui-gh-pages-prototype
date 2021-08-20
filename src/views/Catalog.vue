@@ -15,33 +15,48 @@
       ></v-checkbox>
     </v-row>
     <v-row>
-      <!-- TODO: list/grid cols based on collection size -->
-
       <v-col cols="6">
         <v-btn width="100%" height="100%" @click="addDummy"
           ><v-icon left> mdi-plus </v-icon>Add</v-btn
         >
       </v-col>
 
-      <!-- TODO: make this list its own thing for search pane to share? -->
       <v-col
         v-for="item in sortedList"
         :key="item.id"
         class="d-flex child-flex"
         cols="6"
       >
-        <v-btn @click="selectItem(item.id)" class="temp-btn">{{
-          item.name
-        }}</v-btn>
+        <ItemCard
+          :is-tile="true"
+          :id="item.id"
+          :show-metadata="showMetadata"
+          :image-src="item.avatar"
+          @select-item="selectItem"
+        >
+          <template v-slot:title>
+            {{ item.name }}
+          </template>
+
+          <template v-slot:metadata>
+            <div>
+              {{ item.description }}
+            </div>
+          </template>
+        </ItemCard>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
+import ItemCard from "@/components/ItemCard.vue";
+
 export default {
-  components: {},
+  components: {
+    ItemCard,
+  },
   data() {
     return {
       altSortToggle: false,
@@ -54,13 +69,12 @@ export default {
 
   // cant edit data in computeds, use watch instead
   computed: {
-    ...mapState({
-      items: (state) => state.items,
+    ...mapGetters({
+      catalog: "getCatalog",
     }),
     sortedList() {
-      return this.altSortToggle ? this.altSortedList : this.items;
+      return this.altSortToggle ? this.altSortedList : this.catalog;
     },
-    // getAvatar
   },
 
   watch: {
@@ -70,7 +84,7 @@ export default {
     altSortToggle(val) {
       console.log(`altSortToggle: ${val}`);
       if (!this.altSortedList.length) {
-        this.altSortedList = [...this.items].sort((a, b) => {
+        this.altSortedList = [...this.catalog].sort((a, b) => {
           const dateA = a.dateCreated;
           const dateB = b.dateCreated;
           if (dateA < dateB) {
@@ -96,11 +110,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.temp-btn {
-  white-space: nowrap;
-  word-break: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>
