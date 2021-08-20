@@ -60,12 +60,10 @@ export default {
         icon: "information",
         route: "/about",
       },
-    ],
-    contextActions: [
       {
-        title: "home",
-        icon: "home",
-        route: "/",
+        title: "test",
+        icon: "cog",
+        route: "/test",
       },
     ],
   }),
@@ -74,7 +72,7 @@ export default {
 
   methods: {
     isActiveNav(key) {
-      return key === this.$route.name;
+      return key === this.$route.name?.toLowerCase() || false;
     },
   },
 
